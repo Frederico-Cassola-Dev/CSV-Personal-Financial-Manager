@@ -5,11 +5,10 @@
  * @author Frederico Cassola
  */
 
- @use "sass/base/mixins";
- @use "sass/variables";
- @use "sass/base/reset";
- @use "sass/base/print";
- @use "sass/font";
- @use "sass/layout";
- @use "sass/login";
- @use "sass/home";
+@use "sass/base/mixins";
+@use "sass/base/reset";
+@use "sass/base/print";
+@use "sass/variables";
+@use "sass/font";
+@use "sass/login";
+@use "sass/home";
