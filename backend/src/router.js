@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const userControllers = require("./controllers/userControllers");
+const transactionControllers = require("./controllers/transactionControllers");
 const categoryControllers = require("./controllers/categoryControllers");
 const typeControllers = require("./controllers/typeControllers");
 
@@ -23,5 +24,11 @@ router.get("/types/:id", typeControllers.read);
 router.put("/types/:id", typeControllers.edit);
 router.post("/types", typeControllers.add);
 router.delete("/types/:id", typeControllers.destroy);
+
+router.get("/transactions", transactionControllers.browse);
+router.get("/transactions/:id", transactionControllers.read);
+router.put("/transactions/:id", transactionControllers.edit);
+router.post("/transactions", transactionControllers.add);
+router.delete("/transactions/:id", transactionControllers.destroy);
 
 module.exports = router;

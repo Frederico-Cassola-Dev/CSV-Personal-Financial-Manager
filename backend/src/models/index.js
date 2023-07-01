@@ -29,21 +29,21 @@ pool.getConnection().catch(() => {
 
 const models = {};
 
-const UsersManager = require("./UserManager");
-const FilesManager = require("./FileManager");
-const TransactionsManager = require("./TransactionManager");
-const TypesManager = require("./TypeManager");
-const CategoriesManager = require("./CategorieManager");
+const UserManager = require("./UserManager");
+const FileManager = require("./FileManager");
+const TransactionManager = require("./TransactionManager");
+const TypeManager = require("./TypeManager");
+const CategoryManager = require("./CategorieManager");
 
-models.user = new UsersManager();
+models.user = new UserManager();
 models.user.setDatabase(pool);
-models.file = new FilesManager();
+models.file = new FileManager();
 models.file.setDatabase(pool);
-models.transaction = new TransactionsManager();
+models.transaction = new TransactionManager();
 models.transaction.setDatabase(pool);
-models.type = new TypesManager();
+models.type = new TypeManager();
 models.type.setDatabase(pool);
-models.category = new CategoriesManager();
+models.category = new CategoryManager();
 models.category.setDatabase(pool);
 
 // bonus: use a proxy to personalize error message,
