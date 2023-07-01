@@ -29,10 +29,22 @@ pool.getConnection().catch(() => {
 
 const models = {};
 
-const ItemManager = require("./ItemManager");
+const UsersManager = require("./UserManager");
+const FilesManager = require("./FileManager");
+const TransactionsManager = require("./TransactionManager");
+const TypesManager = require("./TypeManager");
+const CategoriesManager = require("./CategorieManager");
 
-models.item = new ItemManager();
-models.item.setDatabase(pool);
+models.user = new UsersManager();
+models.user.setDatabase(pool);
+models.file = new FilesManager();
+models.file.setDatabase(pool);
+models.transaction = new TransactionsManager();
+models.transaction.setDatabase(pool);
+models.type = new TypesManager();
+models.type.setDatabase(pool);
+models.category = new CategoriesManager();
+models.category.setDatabase(pool);
 
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
