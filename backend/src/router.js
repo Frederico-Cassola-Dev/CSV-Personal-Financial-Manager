@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const userControllers = require("./controllers/userControllers");
+const fileControllers = require("./controllers/fileControllers");
 const transactionControllers = require("./controllers/transactionControllers");
 const categoryControllers = require("./controllers/categoryControllers");
 const typeControllers = require("./controllers/typeControllers");
@@ -30,5 +31,11 @@ router.get("/transactions/:id", transactionControllers.read);
 router.put("/transactions/:id", transactionControllers.edit);
 router.post("/transactions", transactionControllers.add);
 router.delete("/transactions/:id", transactionControllers.destroy);
+
+router.get("/files", fileControllers.browse);
+router.get("/files/:id", fileControllers.read);
+router.put("/files/:id", fileControllers.edit);
+router.post("/files", fileControllers.add);
+router.delete("/files/:id", fileControllers.destroy);
 
 module.exports = router;
