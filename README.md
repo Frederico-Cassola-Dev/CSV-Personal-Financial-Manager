@@ -51,3 +51,7 @@ For deployment, you have to go to `secrets` → app `actions` on the github repo
 - CAPROVER_FRONT_APPNAME : name app on caprover
 - CAPROVER_PASSWORD : password caprover
 - CAPROVER_SERVER : link of domain
+
+### Description
+
+CSV-Personal-Financial-Manager is an application to import a csv file from a bank and visualize it on a site web.
