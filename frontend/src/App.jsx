@@ -1,9 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+import Layout from "./layouts/Layout";
+
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import List from "./pages/List";
+import Uploads from "./pages/Uploads";
 
-import "./styles.scss";
+import "./styles.css";
 
 function App() {
   return (
@@ -11,7 +15,11 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/home" element={<Home />} />
+          <Route element={<Layout />}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/list" element={<List />} />
+            <Route path="/uploads" element={<Uploads />} />
+          </Route>
         </Routes>
       </Router>
     </div>
