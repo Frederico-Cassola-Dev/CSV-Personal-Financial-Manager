@@ -1,7 +1,10 @@
 const express = require("express");
+const multer = require("multer");
 
 const router = express.Router();
+const upload = multer({ dest: "./public/uploads/" });
 
+const uploadFile = require("./services/uploadFile");
 const userControllers = require("./controllers/userControllers");
 const fileControllers = require("./controllers/fileControllers");
 const transactionControllers = require("./controllers/transactionControllers");
@@ -37,6 +40,8 @@ router.get("/files/:id", fileControllers.read);
 router.put("/files/:id", fileControllers.edit);
 router.post("/files", fileControllers.add);
 router.delete("/files/:id", fileControllers.destroy);
+
+router.post("/uploads", upload.single("file"), uploadFile.postFile);
 
 router.get("/users/:id/transactions", transactionControllers.browse);
 router.get("/users/:id/transactions/id", transactionControllers.browse);
