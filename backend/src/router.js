@@ -38,4 +38,7 @@ router.put("/files/:id", fileControllers.edit);
 router.post("/files", fileControllers.add);
 router.delete("/files/:id", fileControllers.destroy);
 
+router.get("/users/:id/transactions", transactionControllers.browse);
+router.get("/users/:id/transactions/id", transactionControllers.browse);
+
 module.exports = router;
