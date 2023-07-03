@@ -1,4 +1,6 @@
 const fs = require("fs");
+// eslint-disable-next-line import/no-extraneous-dependencies
+const Papa = require("papaparse");
 const { v4: uuidv4 } = require("uuid");
 
 const postFile = (req, res) => {
@@ -14,10 +16,29 @@ const postFile = (req, res) => {
       if (err) throw err;
     }
   );
-  res.status(201).json({
-    message: "File uploaded",
-    newUploadedFileName: newFileName,
-  });
+
+  const parseCsv = async () => {
+    //* Read the file in the server
+    const csvFile = fs.createReadStream(`./public/uploads/${newFileName}`);
+
+    return new Promise((resolve) => {
+      Papa.parse(csvFile, {
+        delimiter: ";",
+        downloadRequestBody: true,
+        complete: (results) => {
+          const dataRaw = results.data;
+          res.status(201).json({
+            message: "File uploaded",
+            newUploadedFileName: newFileName,
+            parsedData: dataRaw,
+          });
+          resolve(dataRaw);
+        },
+      });
+    });
+  };
+
+  parseCsv();
 };
 
 module.exports = { postFile };

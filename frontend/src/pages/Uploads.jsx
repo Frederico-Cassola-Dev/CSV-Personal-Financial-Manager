@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { AiOutlineUpload } from "react-icons/ai";
 
 export default function Uploads() {
   const [uploadsData, setUploadsData] = useState([]);
+  // const [uploadedFile, setUploadedFile] = useState([]);
 
   useEffect(() => {
     axios
@@ -10,9 +12,41 @@ export default function Uploads() {
       .then((response) => setUploadsData(response.data));
   }, []);
 
+  const handleInputFileUpload = (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append("file", event.target[0].files[0]);
+
+    axios
+      .post(`${import.meta.env.VITE_BACKEND_URL}/uploads`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((response) => console.info(response.data))
+      .catch((err) => console.error(err));
+  };
+
   return (
-    <div className="flex items-center justify-center m-8">
-      <table className="table-fixed">
+    <div className="flex flex-col items-center justify-center m-8">
+      <form
+        className="flex justify-between mb-8 w-full"
+        onSubmit={handleInputFileUpload}
+      >
+        <input
+          className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 py-2 px-4 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+          id="file_input"
+          type="file"
+        />
+
+        <button
+          type="submit"
+          className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold ml-2 py-2 px-4 rounded inline-flex items-center"
+        >
+          <AiOutlineUpload size={20} />
+          <span>Envoyer</span>
+        </button>
+      </form>
+      <table className="table-fixed w-full">
         <thead className="bg-gray-800 text-gray-300 sticky ">
           <tr>
             <th className=" w-48 p-4 rounded-tl-lg">Original name</th>
