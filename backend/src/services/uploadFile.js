@@ -2,7 +2,7 @@ const fs = require("fs");
 const Papa = require("papaparse");
 const { v4: uuidv4 } = require("uuid");
 
-const postFile = (req, res) => {
+const postFile = (req, res, next) => {
   const { originalname } = req.file;
 
   const { filename } = req.file;
@@ -43,6 +43,11 @@ const postFile = (req, res) => {
             });
             return obj;
           });
+
+          req.body.jsonData = jsonData;
+          req.body.fileName = newFileName;
+          next();
+
           res.status(201).json({
             message: "File uploaded",
             newUploadedFileName: newFileName,

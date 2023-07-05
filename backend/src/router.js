@@ -5,6 +5,7 @@ const router = express.Router();
 const upload = multer({ dest: "./public/uploads/" });
 
 const uploadFile = require("./services/uploadFile");
+const saveParsedCSVFile = require("./services/saveParsedCSVFile");
 const userControllers = require("./controllers/userControllers");
 const fileControllers = require("./controllers/fileControllers");
 const transactionControllers = require("./controllers/transactionControllers");
@@ -41,7 +42,12 @@ router.put("/files/:id", fileControllers.edit);
 router.post("/files", fileControllers.add);
 router.delete("/files/:id", fileControllers.destroy);
 
-router.post("/uploads", upload.single("file"), uploadFile.postFile);
+router.post(
+  "/uploads",
+  upload.single("file"),
+  uploadFile.postFile,
+  saveParsedCSVFile.saveParsedCSVFile
+);
 
 router.get("/users/:id/transactions", transactionControllers.browse);
 router.get("/users/:id/transactions/id", transactionControllers.browse);
