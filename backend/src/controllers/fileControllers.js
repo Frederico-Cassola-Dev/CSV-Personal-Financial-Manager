@@ -11,6 +11,18 @@ const browse = (req, res) => {
       res.sendStatus(500);
     });
 };
+const browseByUser = (req, res) => {
+  const { userId } = req.params;
+  models.file
+    .findAllByUser(parseInt(userId, 10))
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
 
 const read = (req, res) => {
   models.file
@@ -51,14 +63,35 @@ const edit = (req, res) => {
 };
 
 const add = (req, res) => {
-  const file = req.body;
+  // const currentDate = new Date();
+  // const YearMonthDay = currentDate.toLocaleDateString("fr");
+  // console.log("🚀 - currentDate:", YearMonthDay);
 
+  const originalName = req.body.originalFile.originalname;
+
+  const { fileNameJson } = req.body;
+  const accountNb = 123456;
+  // // const accountNb = originalFile.account_nb;
+  // const createdDate = YearMonthDay;
+  const startPeriod = "2023-06-01";
+  const endPeriod = "2023-06-30";
+  const { size } = req.body.originalFile;
+  const userId = 1;
   // TODO validations (length, format...)
 
   models.file
-    .insert(file)
-    .then(([result]) => {
-      res.location(`/files/${result.insertId}`).sendStatus(201);
+    .insert(
+      originalName,
+      fileNameJson,
+      accountNb,
+      // createdDate,
+      startPeriod,
+      endPeriod,
+      size,
+      userId
+    )
+    .then(() => {
+      res.sendStatus(201);
     })
     .catch((err) => {
       console.error(err);
@@ -84,6 +117,7 @@ const destroy = (req, res) => {
 
 module.exports = {
   browse,
+  browseByUser,
   read,
   edit,
   add,

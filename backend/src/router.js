@@ -37,16 +37,18 @@ router.post("/transactions", transactionControllers.add);
 router.delete("/transactions/:id", transactionControllers.destroy);
 
 router.get("/files", fileControllers.browse);
+router.get("/files/users/:userId", fileControllers.browseByUser);
 router.get("/files/:id", fileControllers.read);
-router.put("/files/:id", fileControllers.edit);
 router.post("/files", fileControllers.add);
+router.put("/files/:id", fileControllers.edit);
 router.delete("/files/:id", fileControllers.destroy);
 
 router.post(
   "/uploads",
   upload.single("file"),
   uploadFile.postFile,
-  saveParsedCSVFile.saveParsedCSVFile
+  saveParsedCSVFile.saveParsedCSVFile,
+  fileControllers.add
 );
 
 router.get("/users/:id/transactions", transactionControllers.browse);

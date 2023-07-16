@@ -45,14 +45,16 @@ const postFile = (req, res, next) => {
           });
 
           req.body.jsonData = jsonData;
-          req.body.fileName = newFileName;
+          req.body.fileNameCSV = newFileName;
+          req.body.originalFile = req.file;
+
+          // res.status(201).send({
+          //   message: "File uploaded",
+          //   // newUploadedFileName: newFileName,
+          //   // parsedData: jsonData,
+          // });
           next();
 
-          res.status(201).json({
-            message: "File uploaded",
-            newUploadedFileName: newFileName,
-            parsedData: jsonData,
-          });
           resolve(dataRaw);
         },
       });

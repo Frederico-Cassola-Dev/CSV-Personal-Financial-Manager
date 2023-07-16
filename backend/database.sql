@@ -22,8 +22,8 @@ CREATE TABLE
         original_name VARCHAR(254) NOT NULL,
         filename_server VARCHAR(254) NOT NULL,
         account_nb INT NOT NULL,
-        created_date VARCHAR(100) NOT NULL,
-        start_period VARCHAR(100) NOT NULL,
+        created_date DATE DEFAULT (CURRENT_DATE) NOT NULL,
+        start_period VARCHAR(100) NOT NULL,np
         end_period VARCHAR(100) NOT NULL,
         size INT NOT NULL,
         user_id INT NOT NULL
