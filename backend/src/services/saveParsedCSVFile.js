@@ -11,12 +11,13 @@ const saveParsedCSVFile = (req, res, next) => {
   );
   const newStringifiedJSONFile = JSON.stringify(jsonData);
 
-  fs.writeFile(originalPathFile, newStringifiedJSONFile, (err) => {
-    if (err) console.error(err);
-  });
-  req.body = { fileNameJson: `${fileNameCSV}.json`, originalFile };
-
-  next();
+  setTimeout(() => {
+    fs.writeFile(originalPathFile, newStringifiedJSONFile, (err) => {
+      if (err) console.error(err);
+    });
+    req.body = { fileNameJson: `${fileNameCSV}.json`, originalFile, jsonData };
+    next();
+  }, 500);
 };
 
 module.exports = { saveParsedCSVFile };

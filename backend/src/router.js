@@ -33,7 +33,7 @@ router.delete("/types/:id", typeControllers.destroy);
 router.get("/transactions", transactionControllers.browse);
 router.get("/transactions/:id", transactionControllers.read);
 router.put("/transactions/:id", transactionControllers.edit);
-router.post("/transactions", transactionControllers.add);
+// router.post("/transactions", transactionControllers.add);
 router.delete("/transactions/:id", transactionControllers.destroy);
 
 router.get("/files", fileControllers.browse);
@@ -48,7 +48,8 @@ router.post(
   upload.single("file"),
   uploadFile.postFile,
   saveParsedCSVFile.saveParsedCSVFile,
-  fileControllers.add
+  fileControllers.add,
+  transactionControllers.add
 );
 
 router.get("/users/:id/transactions", transactionControllers.browse);

@@ -62,29 +62,20 @@ const edit = (req, res) => {
     });
 };
 
-const add = (req, res) => {
-  // const currentDate = new Date();
-  // const YearMonthDay = currentDate.toLocaleDateString("fr");
-  // console.log("🚀 - currentDate:", YearMonthDay);
-
+const add = (req, res, next) => {
   const originalName = req.body.originalFile.originalname;
-
   const { fileNameJson } = req.body;
   const accountNb = 123456;
-  // // const accountNb = originalFile.account_nb;
-  // const createdDate = YearMonthDay;
   const startPeriod = "2023-06-01";
   const endPeriod = "2023-06-30";
   const { size } = req.body.originalFile;
   const userId = 1;
-  // TODO validations (length, format...)
 
   models.file
     .insert(
       originalName,
       fileNameJson,
       accountNb,
-      // createdDate,
       startPeriod,
       endPeriod,
       size,
@@ -97,6 +88,7 @@ const add = (req, res) => {
       console.error(err);
       res.sendStatus(500);
     });
+  next();
 };
 
 const destroy = (req, res) => {

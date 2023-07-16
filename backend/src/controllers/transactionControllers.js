@@ -50,20 +50,24 @@ const edit = (req, res) => {
     });
 };
 
-const add = (req, res) => {
-  const transaction = req.body;
+const add = async (req, res) => {
+  const { jsonData } = req.body;
+  // console.log("🚀 - jsonData:", jsonData);
 
-  // TODO validations (length, format...)
+  const transactionItems = jsonData;
+  // console.log("🚀 - transactionItems:", transactionItems.length);
 
-  models.transaction
-    .insert(transaction)
-    .then(([result]) => {
-      res.location(`/transactions/${result.insertId}`).sendStatus(201);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
+  for (const transactionItem of transactionItems) {
+    models.transaction
+      .insert(transactionItem)
+      .then(() => {
+        res.sendStatus(201);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.sendStatus(500);
+      });
+  }
 };
 
 const destroy = (req, res) => {
