@@ -5,21 +5,24 @@ class TransactionManager extends AbstractManager {
     super({ table: "transactions" });
   }
 
-  async insert(transactionItem) {
+  async insert(finalArray) {
+    // console.log("🚀 - finalArray:", finalArray.length);
+
     // const value = parseFloat(transactionItem.value, 10);
 
     await this.database.query(
       `insert into ${this.table} (title, description, bank_date, transaction_date, value, file_id, category_id) values (?, ?, ?, ?, ? ,? ,?)`,
-      [
-        transactionItem.description,
-        transactionItem.description,
-        "23/07/15",
-        // transactionItem.bank_date,
-        transactionItem.type,
-        32,
-        1,
-        2,
-      ]
+      // [
+      //   transactionItem.description,
+      //   transactionItem.description,
+      //   "23/07/15",
+      //   // transactionItem.bank_date,
+      //   transactionItem.type,
+      //   32,
+      //   1,
+      //   2,
+      // ]
+      [finalArray]
     );
   }
 

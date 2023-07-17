@@ -55,19 +55,28 @@ const add = async (req, res) => {
   // console.log("🚀 - jsonData:", jsonData);
 
   const transactionItems = jsonData;
-  // console.log("🚀 - transactionItems:", transactionItems.length);
 
-  for (const transactionItem of transactionItems) {
-    models.transaction
-      .insert(transactionItem)
-      .then(() => {
-        res.sendStatus(201);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.sendStatus(500);
-      });
+  const transactionsArray = [];
+  for (let i = 0; i < transactionItems.length; i += 1) {
+    const secondLevelArray = [];
+    for (let j = 0; j < transactionItems.length; j += 1) {
+      secondLevelArray.push(Object.values(transactionItems[i]));
+    }
+    transactionsArray.push(secondLevelArray);
   }
+
+  const finalArray = transactionsArray.flat();
+  // console.log("🚀 - finalArray:", finalArray);
+
+  models.transaction
+    .insert(finalArray)
+    .then(() => {
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
 };
 
 const destroy = (req, res) => {

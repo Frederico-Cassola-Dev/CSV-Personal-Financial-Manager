@@ -26,7 +26,6 @@ const postFile = (req, res, next) => {
       "description",
       "type3",
       "type4",
-      "type5",
     ];
     return new Promise((resolve) => {
       Papa.parse(csvFile, {
