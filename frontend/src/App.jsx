@@ -7,7 +7,7 @@ import Home from "./pages/Home";
 import List from "./pages/List";
 import Uploads from "./pages/Uploads";
 
-import "./styles.css";
+import "./index.css";
 
 function App() {
   return (

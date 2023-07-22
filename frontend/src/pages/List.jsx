@@ -13,12 +13,23 @@ export default function List() {
   return (
     <div className="flex flex-col items-center justify-center m-8">
       <h1 className="text-3xl font-bold text-gray-800 mb-8">Transactions</h1>
+      <select name="" id="" className="mb-4">
+        <option value="1">file name 1</option>
+        <option value="2">file name 2</option>
+        <option value="3">file name 3</option>
+        <option value="3">file name 3</option>
+      </select>
       <table className="table-fixed">
         <thead className="bg-gray-800 text-gray-300 sticky ">
           <tr>
             <th className=" w-48 p-4 rounded-tl-lg">Banque date</th>
-            <th className=" w-48 p-4">Titre</th>
-            <th className=" w-48 p-4 rounded-tr-lg">Valeur</th>
+            <th className=" w-72 p-4">Description</th>
+            <th className=" w-48 p-4">Valeur</th>
+            <th className=" w-48 p-4">Title</th>
+            <th className=" w-48 p-4">transaction_date</th>
+            <th className=" w-48 p-4">undefined</th>
+            <th className=" w-48 p-4">file_id</th>
+            <th className=" w-48 p-4 rounded-tr-lg">category_id</th>
           </tr>
         </thead>
         <tbody className="last-child:bg-green-100 ">
@@ -32,10 +43,25 @@ export default function List() {
                   {transaction.bank_date}
                 </td>
                 <td className="text-center p-4 border-2">
-                  {transaction.title}
+                  <div className=" w-lg">{transaction.description}</div>
                 </td>
                 <td className="text-center p-4 border-2">
                   {transaction.value}
+                </td>
+                <td className="text-center p-4 border-2">
+                  {transaction.title}
+                </td>
+                <td className="text-center p-4 border-2">
+                  {transaction.transaction_date}
+                </td>
+                <td className="text-center p-4 border-2">
+                  {transaction.undefined}
+                </td>
+                <td className="text-center p-4 border-2">
+                  {transaction.file_id}
+                </td>
+                <td className="text-center p-4 border-2">
+                  {transaction.category_id}
                 </td>
               </tr>
             ))}
