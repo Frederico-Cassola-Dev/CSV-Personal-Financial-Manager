@@ -18,15 +18,14 @@ const postFile = (req, res, next) => {
 
   const parseCsv = async () => {
     const csvFile = fs.createReadStream(`./public/uploads/${newFileName}`);
-    const newHeaders = [
-      "bank_date",
-      "value",
-      "type",
-      "type2",
-      "description",
-      "type3",
-      "type4",
-    ];
+    // const newHeaders = [
+    //   "bank_date",
+    //   "value",
+    //   "type",
+    //   "description",
+    //   "type1",
+    //   "type2",
+    // ];
     return new Promise((resolve) => {
       Papa.parse(csvFile, {
         delimiter: ";",
@@ -35,19 +34,22 @@ const postFile = (req, res, next) => {
         complete: (results) => {
           const dataRaw = results.data;
 
-          const jsonData = dataRaw.map((row) => {
-            const obj = {};
-            row.forEach((value, index) => {
-              obj[newHeaders[index]] = value;
-            });
-            return obj;
-          });
+          const cleanedData = dataRaw.map((row) =>
+            row.filter((value) => value !== "")
+          );
 
-          req.body.jsonData = jsonData;
+          // const jsonData = cleanedData.map((row) => {
+          //   const obj = {};
+          //   row.forEach((value, index) => {
+          //     obj[newHeaders[index]] = value;
+          //   });
+          //   return obj;
+          // });
+
+          req.body.cleanedData = cleanedData;
           req.body.fileNameCSV = newFileName;
           req.body.originalFile = req.file;
           resolve(dataRaw);
-          res.sendStatus(201);
           next();
         },
       });

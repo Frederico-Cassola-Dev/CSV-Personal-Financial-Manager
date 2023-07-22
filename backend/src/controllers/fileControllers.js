@@ -64,7 +64,7 @@ const edit = (req, res) => {
 
 const add = (req, res, next) => {
   const originalName = req.body.originalFile.originalname;
-  const { fileNameJson } = req.body;
+  const { fileNameCSV } = req.body;
   const accountNb = 123456;
   const startPeriod = "2023-06-01";
   const endPeriod = "2023-06-30";
@@ -74,16 +74,13 @@ const add = (req, res, next) => {
   models.file
     .insert(
       originalName,
-      fileNameJson,
+      fileNameCSV,
       accountNb,
       startPeriod,
       endPeriod,
       size,
       userId
     )
-    .then(() => {
-      res.sendStatus(201);
-    })
     .catch((err) => {
       console.error(err);
       res.sendStatus(500);

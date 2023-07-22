@@ -51,31 +51,43 @@ const edit = (req, res) => {
 };
 
 const add = async (req, res) => {
-  const { jsonData } = req.body;
-  // console.log("🚀 - jsonData:", jsonData);
+  const { cleanedData } = req.body;
 
-  const transactionItems = jsonData;
-
-  const transactionsArray = [];
-  for (let i = 0; i < transactionItems.length; i += 1) {
-    const secondLevelArray = [];
-    for (let j = 0; j < transactionItems.length; j += 1) {
-      secondLevelArray.push(Object.values(transactionItems[i]));
+  for (let i = 0; i < cleanedData.length; i += 1) {
+    for (let j = 0; j < cleanedData[i].length; j += 1) {
+      if (cleanedData[i].length === 6) {
+        cleanedData[i].push(1);
+        cleanedData[i].push(1);
+      }
+      if (cleanedData[i].length === 5) {
+        cleanedData[i].push("null");
+        cleanedData[i].push(1);
+        cleanedData[i].push(1);
+      }
+      if (cleanedData[i].length === 4) {
+        cleanedData[i].push("null");
+        cleanedData[i].push("null");
+        cleanedData[i].push(1);
+        cleanedData[i].push(1);
+      }
+      if (cleanedData[i].length === 3) {
+        cleanedData[i].push("null");
+        cleanedData[i].push("null");
+        cleanedData[i].push("null");
+        cleanedData[i].push(1);
+        cleanedData[i].push(1);
+      }
     }
-    transactionsArray.push(secondLevelArray);
   }
 
-  const finalArray = transactionsArray.flat();
-  // console.log("🚀 - finalArray:", finalArray);
-
   models.transaction
-    .insert(finalArray)
+    .insert(cleanedData)
     .then(() => {
-      res.sendStatus(201);
+      res.status(201).json({ cleanedData });
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      // res.sendStatus(500);
     });
 };
 
