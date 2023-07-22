@@ -50,19 +50,44 @@ const edit = (req, res) => {
     });
 };
 
-const add = (req, res) => {
-  const transaction = req.body;
+const add = async (req, res) => {
+  const { cleanedData } = req.body;
 
-  // TODO validations (length, format...)
+  for (let i = 0; i < cleanedData.length; i += 1) {
+    for (let j = 0; j < cleanedData[i].length; j += 1) {
+      if (cleanedData[i].length === 6) {
+        cleanedData[i].push(1);
+        cleanedData[i].push(1);
+      }
+      if (cleanedData[i].length === 5) {
+        cleanedData[i].push("null");
+        cleanedData[i].push(1);
+        cleanedData[i].push(1);
+      }
+      if (cleanedData[i].length === 4) {
+        cleanedData[i].push("null");
+        cleanedData[i].push("null");
+        cleanedData[i].push(1);
+        cleanedData[i].push(1);
+      }
+      if (cleanedData[i].length === 3) {
+        cleanedData[i].push("null");
+        cleanedData[i].push("null");
+        cleanedData[i].push("null");
+        cleanedData[i].push(1);
+        cleanedData[i].push(1);
+      }
+    }
+  }
 
   models.transaction
-    .insert(transaction)
-    .then(([result]) => {
-      res.location(`/transactions/${result.insertId}`).sendStatus(201);
+    .insert(cleanedData)
+    .then(() => {
+      res.status(201).json({ cleanedData });
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      // res.sendStatus(500);
     });
 };
 

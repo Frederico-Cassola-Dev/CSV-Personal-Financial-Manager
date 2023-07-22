@@ -5,17 +5,33 @@ class FileManager extends AbstractManager {
     super({ table: "files" });
   }
 
-  insert(file) {
+  findAllByUser(userId) {
     return this.database.query(
-      `insert into ${this.table} ( original_name, filename_server, account_nb, created_date, start_period, end_period, size) values (?)`,
+      `select * from ${this.table} where user_id = ?`,
+      [userId]
+    );
+  }
+
+  insert(
+    originalName,
+    fileNameJson,
+    accountNb,
+    // createdDate,
+    startPeriod,
+    endPeriod,
+    size,
+    userId
+  ) {
+    return this.database.query(
+      `insert into ${this.table} ( original_name, filename_server, account_nb, start_period, end_period, size, user_id) values (?, ?, 12345678, "2023-05-01", "2023-05-31", ?, 1)`,
       [
-        file.original_name,
-        file.filename_server,
-        file.account_nb,
-        file.created_date,
-        file.start_period,
-        file.end_period,
-        file.size,
+        originalName,
+        fileNameJson,
+        accountNb,
+        startPeriod,
+        endPeriod,
+        size,
+        userId,
       ]
     );
   }

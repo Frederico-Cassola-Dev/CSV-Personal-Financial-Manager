@@ -5,18 +5,10 @@ class TransactionManager extends AbstractManager {
     super({ table: "transactions" });
   }
 
-  insert(transaction) {
-    return this.database.query(
-      `insert into ${this.table} (title, description, bank_date, transaction_date, value, file_id, category_id) values (?, ?, ?, ?, ? ,? ,?)`,
-      [
-        transaction.title,
-        transaction.description,
-        transaction.bank_date,
-        transaction.transaction_date,
-        transaction.value,
-        transaction.file_id,
-        transaction.category_id,
-      ]
+  async insert(finalArray) {
+    await this.database.query(
+      `insert into ${this.table} (bank_date, value, title, description, transaction_date, undefined, file_id, category_id) values ?`,
+      [finalArray]
     );
   }
 

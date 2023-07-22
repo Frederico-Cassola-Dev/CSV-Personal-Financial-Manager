@@ -14,7 +14,7 @@ CREATE TABLE
         photo varchar(254),
         email varchar(254) NOT NULL UNIQUE,
         hash varchar(254) NOT NULL
-    ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 CREATE TABLE
     files (
@@ -22,31 +22,32 @@ CREATE TABLE
         original_name VARCHAR(254) NOT NULL,
         filename_server VARCHAR(254) NOT NULL,
         account_nb INT NOT NULL,
-        created_date VARCHAR(100) NOT NULL,
+        created_date DATE DEFAULT (CURRENT_DATE) NOT NULL,
         start_period VARCHAR(100) NOT NULL,
         end_period VARCHAR(100) NOT NULL,
         size INT NOT NULL,
         user_id INT NOT NULL
-    ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 CREATE TABLE
     transactions (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        bank_date VARCHAR(254) NOT NULL,
+        transaction_date VARCHAR(100) NOT NULL,
+        value VARCHAR(100) NOT NULL,
         title VARCHAR(254) NOT NULL,
         description VARCHAR(254) NOT NULL,
-        bank_date VARCHAR(100) NOT NULL,
-        transaction_date VARCHAR(100) NOT NULL,
-        value INT NOT NULL,
+        undefined VARCHAR(100) NULL,
         file_id INT NOT NULL,
         category_id INT NOT NULL
-    ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 CREATE TABLE
     types (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         title varchar(254) NOT NULL,
         description varchar(254) NOT NULL
-    ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 CREATE TABLE
     transactions_types (
@@ -55,14 +56,14 @@ CREATE TABLE
         type_id INT NOT NULL,
         FOREIGN KEY (transaction_id) REFERENCES transactions(id),
         FOREIGN KEY (type_id) REFERENCES types(id)
-    ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 CREATE TABLE
     categories (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         title varchar(254) NOT NULL,
         description varchar(254) NOT NULL
-    ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 INSERT INTO
     users (
@@ -210,11 +211,12 @@ Values (
 
 INSERT INTO
     transactions (
+        bank_date,
+        value,
         title,
         description,
-        bank_date,
         transaction_date,
-        value,
+        undefined,
         file_id,
         category_id
     )
@@ -223,7 +225,8 @@ VALUES (
         "Super Market desc",
         "23-01-02",
         "23-01-01",
-        50,
+        "50",
+        NULL,
         1,
         1
     ), (
@@ -231,7 +234,8 @@ VALUES (
         "Super Market desc1",
         "23-01-02",
         "23-01-01",
-        43,
+        "43",
+        NULL,
         1,
         1
     ), (
@@ -239,401 +243,10 @@ VALUES (
         "Super Market desc",
         "23-01-02",
         "23-01-01",
-        324,
+        "324",
+        NULL,
         1,
         3
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        234,
-        1,
-        5
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        40,
-        1,
-        4
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        10,
-        1,
-        1
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        50,
-        1,
-        1
-    ), (
-        "Super Market1",
-        "Super Market desc1",
-        "23-01-02",
-        "23-01-01",
-        43,
-        2,
-        1
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        324,
-        2,
-        3
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        234,
-        2,
-        5
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        40,
-        2,
-        4
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        50,
-        2,
-        1
-    ), (
-        "Super Market1",
-        "Super Market desc1",
-        "23-01-02",
-        "23-01-01",
-        43,
-        2,
-        1
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        324,
-        3,
-        3
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        234,
-        3,
-        5
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        40,
-        3,
-        4
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        10,
-        3,
-        1
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        50,
-        3,
-        1
-    ), (
-        "Super Market1",
-        "Super Market desc1",
-        "23-01-02",
-        "23-01-01",
-        43,
-        3,
-        1
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        324,
-        3,
-        3
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        234,
-        3,
-        5
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        40,
-        3,
-        4
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        50,
-        4,
-        1
-    ), (
-        "Super Market1",
-        "Super Market desc1",
-        "23-01-02",
-        "23-01-01",
-        43,
-        4,
-        1
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        324,
-        4,
-        3
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        234,
-        4,
-        5
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        40,
-        4,
-        4
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        10,
-        4,
-        1
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        50,
-        4,
-        1
-    ), (
-        "Super Market1",
-        "Super Market desc1",
-        "23-01-02",
-        "23-01-01",
-        43,
-        4,
-        1
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        324,
-        4,
-        3
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        234,
-        4,
-        5
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        40,
-        4,
-        4
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        50,
-        4,
-        1
-    ), (
-        "Super Market1",
-        "Super Market desc1",
-        "23-01-02",
-        "23-01-01",
-        43,
-        4,
-        1
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        324,
-        4,
-        3
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        234,
-        4,
-        5
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        40,
-        4,
-        4
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        10,
-        4,
-        1
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        50,
-        4,
-        1
-    ), (
-        "Super Market1",
-        "Super Market desc1",
-        "23-01-02",
-        "23-01-01",
-        43,
-        4,
-        1
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        324,
-        4,
-        3
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        234,
-        4,
-        5
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        40,
-        4,
-        4
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        10,
-        5,
-        1
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        10,
-        5,
-        1
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        10,
-        5,
-        1
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        10,
-        5,
-        1
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        10,
-        5,
-        1
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        10,
-        5,
-        1
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        10,
-        5,
-        1
-    ), (
-        "Super Market",
-        "Super Market desc",
-        "23-01-02",
-        "23-01-01",
-        10,
-        5,
-        1
     );
 
 INSERT INTO
@@ -657,4 +270,4 @@ VALUES (
 
 INSERT INTO
     transactions_types (transaction_id, type_id)
-VALUES (1, 1), (1, 3), (2, 1), (2, 3), (3, 2), (3, 4), (4, 4), (4, 6), (5, 1), (5, 3), (6, 2), (6, 4), (7, 1), (7, 3), (8, 2), (8, 4), (9, 5), (9, 1), (10, 6), (10, 1);
+VALUES (1, 1), (1, 3), (2, 1);

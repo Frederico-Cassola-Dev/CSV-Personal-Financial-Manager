@@ -11,6 +11,18 @@ const browse = (req, res) => {
       res.sendStatus(500);
     });
 };
+const browseByUser = (req, res) => {
+  const { userId } = req.params;
+  models.file
+    .findAllByUser(parseInt(userId, 10))
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
 
 const read = (req, res) => {
   models.file
@@ -50,20 +62,30 @@ const edit = (req, res) => {
     });
 };
 
-const add = (req, res) => {
-  const file = req.body;
-
-  // TODO validations (length, format...)
+const add = (req, res, next) => {
+  const originalName = req.body.originalFile.originalname;
+  const { fileNameCSV } = req.body;
+  const accountNb = 123456;
+  const startPeriod = "2023-06-01";
+  const endPeriod = "2023-06-30";
+  const { size } = req.body.originalFile;
+  const userId = 1;
 
   models.file
-    .insert(file)
-    .then(([result]) => {
-      res.location(`/files/${result.insertId}`).sendStatus(201);
-    })
+    .insert(
+      originalName,
+      fileNameCSV,
+      accountNb,
+      startPeriod,
+      endPeriod,
+      size,
+      userId
+    )
     .catch((err) => {
       console.error(err);
       res.sendStatus(500);
     });
+  next();
 };
 
 const destroy = (req, res) => {
@@ -84,6 +106,7 @@ const destroy = (req, res) => {
 
 module.exports = {
   browse,
+  browseByUser,
   read,
   edit,
   add,

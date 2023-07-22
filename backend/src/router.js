@@ -1,7 +1,10 @@
 const express = require("express");
+const multer = require("multer");
 
 const router = express.Router();
+const upload = multer({ dest: "./public/uploads/" });
 
+const uploadFile = require("./services/uploadFile");
 const userControllers = require("./controllers/userControllers");
 const fileControllers = require("./controllers/fileControllers");
 const transactionControllers = require("./controllers/transactionControllers");
@@ -29,13 +32,25 @@ router.delete("/types/:id", typeControllers.destroy);
 router.get("/transactions", transactionControllers.browse);
 router.get("/transactions/:id", transactionControllers.read);
 router.put("/transactions/:id", transactionControllers.edit);
-router.post("/transactions", transactionControllers.add);
+// router.post("/transactions", transactionControllers.add);
 router.delete("/transactions/:id", transactionControllers.destroy);
 
 router.get("/files", fileControllers.browse);
+router.get("/files/users/:userId", fileControllers.browseByUser);
 router.get("/files/:id", fileControllers.read);
-router.put("/files/:id", fileControllers.edit);
 router.post("/files", fileControllers.add);
+router.put("/files/:id", fileControllers.edit);
 router.delete("/files/:id", fileControllers.destroy);
+
+router.post(
+  "/uploads",
+  upload.single("file"),
+  uploadFile.postFile,
+  fileControllers.add,
+  transactionControllers.add
+);
+
+router.get("/users/:id/transactions", transactionControllers.browse);
+router.get("/users/:id/transactions/id", transactionControllers.browse);
 
 module.exports = router;
