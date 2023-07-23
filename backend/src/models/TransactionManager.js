@@ -5,6 +5,14 @@ class TransactionManager extends AbstractManager {
     super({ table: "transactions" });
   }
 
+  findAllByFileId(fileId) {
+    return this.database.query(
+      `SELECT * FROM ${this.table} WHERE file_id = ?`,
+      [fileId]
+    );
+  }
+
+  //! Verify if we really need async await
   async insert(finalArray) {
     await this.database.query(
       `insert into ${this.table} (bank_date, value, title, description, transaction_date, undefined, file_id, category_id) values ?`,

@@ -29,6 +29,7 @@ router.put("/types/:id", typeControllers.edit);
 router.post("/types", typeControllers.add);
 router.delete("/types/:id", typeControllers.destroy);
 
+router.get("/transactions/files/:id", transactionControllers.browseByFileId);
 router.get("/transactions", transactionControllers.browse);
 router.get("/transactions/:id", transactionControllers.read);
 router.put("/transactions/:id", transactionControllers.edit);

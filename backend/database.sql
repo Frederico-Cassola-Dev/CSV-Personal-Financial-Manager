@@ -14,7 +14,7 @@ CREATE TABLE
         photo varchar(254),
         email varchar(254) NOT NULL UNIQUE,
         hash varchar(254) NOT NULL
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+    );
 
 CREATE TABLE
     files (
@@ -27,7 +27,7 @@ CREATE TABLE
         end_period VARCHAR(100) NOT NULL,
         size INT NOT NULL,
         user_id INT NOT NULL
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+    );
 
 CREATE TABLE
     transactions (
@@ -40,14 +40,14 @@ CREATE TABLE
         undefined VARCHAR(100) NULL,
         file_id INT NOT NULL,
         category_id INT NOT NULL
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+    );
 
 CREATE TABLE
     types (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         title varchar(254) NOT NULL,
         description varchar(254) NOT NULL
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+    );
 
 CREATE TABLE
     transactions_types (
@@ -56,14 +56,14 @@ CREATE TABLE
         type_id INT NOT NULL,
         FOREIGN KEY (transaction_id) REFERENCES transactions(id),
         FOREIGN KEY (type_id) REFERENCES types(id)
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+    );
 
 CREATE TABLE
     categories (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         title varchar(254) NOT NULL,
         description varchar(254) NOT NULL
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+    );
 
 INSERT INTO
     users (
@@ -236,7 +236,7 @@ VALUES (
         "23-01-01",
         "43",
         NULL,
-        1,
+        2,
         1
     ), (
         "Super Market",
@@ -245,7 +245,7 @@ VALUES (
         "23-01-01",
         "324",
         NULL,
-        1,
+        3,
         3
     );
 

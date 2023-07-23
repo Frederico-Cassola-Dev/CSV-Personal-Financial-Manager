@@ -12,6 +12,24 @@ const browse = (req, res) => {
     });
 };
 
+const browseByFileId = (req, res) => {
+  const fileId = req.params.id;
+
+  models.transaction
+    .findAllByFileId(fileId)
+    .then(([rows]) => {
+      if (rows.length === 0) {
+        res.sendStatus(404);
+      } else {
+        res.send(rows);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const read = (req, res) => {
   models.transaction
     .find(req.params.id)
@@ -83,7 +101,7 @@ const add = async (req, res) => {
   models.transaction
     .insert(cleanedData)
     .then(() => {
-      res.status(201).json({ cleanedData });
+      res.status(201);
     })
     .catch((err) => {
       console.error(err);
@@ -109,6 +127,7 @@ const destroy = (req, res) => {
 
 module.exports = {
   browse,
+  browseByFileId,
   read,
   edit,
   add,
