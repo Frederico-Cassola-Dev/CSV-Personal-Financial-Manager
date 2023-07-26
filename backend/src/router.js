@@ -11,6 +11,8 @@ const transactionControllers = require("./controllers/transactionControllers");
 const categoryControllers = require("./controllers/categoryControllers");
 const typeControllers = require("./controllers/typeControllers");
 
+router.post("/login", userControllers.readUserByEmail);
+
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
 router.put("/users/:id", userControllers.edit);

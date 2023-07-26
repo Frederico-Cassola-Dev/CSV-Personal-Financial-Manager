@@ -6,13 +6,16 @@ export default function List() {
   const [transactionsFileId, setTransactionsFileId] = useState("");
 
   useEffect(() => {
-    axios
-      .get(
-        `${
-          import.meta.env.VITE_BACKEND_URL
-        }/transactions/files/${transactionsFileId}`
-      )
-      .then((response) => setTransactionsData(response.data));
+    if (transactionsFileId !== "") {
+      axios
+        .get(
+          `${
+            import.meta.env.VITE_BACKEND_URL
+          }/transactions/files/${transactionsFileId}`
+        )
+        .then((response) => setTransactionsData(response.data))
+        .catch((err) => console.error(err));
+    }
   }, [transactionsFileId]);
 
   return (
@@ -24,10 +27,11 @@ export default function List() {
         className="mb-4"
         onChange={(e) => setTransactionsFileId(e.target.value)}
       >
+        <option value="">Select a file</option>
         <option value="1">file name 1</option>
         <option value="2">file name 2</option>
         <option value="3">file name 3</option>
-        <option value="4">file name 3</option>
+        <option value="4">file name 4</option>
       </select>
       <table className="table-fixed">
         <thead className="bg-gray-800 text-gray-300 sticky ">

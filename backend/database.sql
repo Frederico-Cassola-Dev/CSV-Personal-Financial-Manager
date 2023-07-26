@@ -13,7 +13,7 @@ CREATE TABLE
         lastname varchar(254) NOT NULL,
         photo varchar(254),
         email varchar(254) NOT NULL UNIQUE,
-        hash varchar(254) NOT NULL
+        password varchar(254) NOT NULL
     );
 
 CREATE TABLE
@@ -71,7 +71,7 @@ INSERT INTO
         lastname,
         photo,
         email,
-        hash
+        password
     )
 VALUES (
         "toto",

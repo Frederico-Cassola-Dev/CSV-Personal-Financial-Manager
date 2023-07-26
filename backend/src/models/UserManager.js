@@ -5,6 +5,12 @@ class UserManager extends AbstractManager {
     super({ table: "users" });
   }
 
+  findUserByEmail(email) {
+    return this.table.query(`select * from ${this.table} where email = ?`, [
+      email,
+    ]);
+  }
+
   insert(user) {
     return this.database.query(
       `insert into ${this.table} (firstname, lastname, photo, email, hash) values (?,?,?,?,?)`,
